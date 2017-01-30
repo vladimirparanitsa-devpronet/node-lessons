@@ -44,13 +44,16 @@ function fileFilter(req, file, cb) {
     return false;
   });
 
-  console.log(fileExist, fileUpdateTime, fileModTime, fileUpdateTime >= fileModTime);
-
   if (fileExist && fileUpdateTime >= fileModTime) {
     cb(null, false);
   } else {
 
-    filesList[fileIndex] = [filePath, fileModTime];
+    if (fileIndex > -1) {
+      filesList[fileIndex] = [filePath, fileModTime];
+    } else {
+      filesList.push([filePath, fileModTime]);
+    }
+
     saveToFileList(filesList[fileIndex], function(err) {
       cb(err, true);
     });
@@ -71,7 +74,6 @@ function validateRequest() {
 
 function saveToFileList(filePath, cb) {
   try {
-    filesList.push(filePath);
     console.log(filesList);
     var fileRecord = prepareDataToRecors(filesList);
     console.log(fileRecord);

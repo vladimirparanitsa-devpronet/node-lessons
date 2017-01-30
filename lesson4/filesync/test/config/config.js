@@ -1,0 +1,16 @@
+module.exports = {
+    VALID_FILE_PATH: '../../README.md',
+    INVALID_FILE_PATH: '../../README123.md',
+    PASSWORD_PROMPT: 'Enter password:',
+    VALID_USER: 'qwe',
+    SHORT_PASSWORD: 'short',
+    VALID_PASSWORD: 'securepass',
+    PASSWORD_MIN_LENGTH: 6,
+    SERVER_DOWN_ERROR: 'connect ECONNREFUSED 127.0.0.1:3000',
+    SHORT_PASSWORD_ERROR: 'Password should have length more than ' + PASSWORD_MIN_LENGTH,
+    NO_FILE_ERROR_PART: 'ENOENT: no such file or directory',
+    MOCK_FILE_PATH: '../mock/mockFile',
+    PATH_MESSAGE: 'filePathQuery generated ',
+    SYNC_MESSAGE_START: 'Trying to sync file ',
+    SYNC_MESSAGE_END: ' with size 26',
+};

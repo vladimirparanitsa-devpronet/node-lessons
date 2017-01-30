@@ -22,7 +22,7 @@ function postFileToCloud(filePath, username, password, cb) {
       var fileStream = fs.createReadStream(filePath);
       var uploadUrl = generateUploadUrl(filePath);
       return agent
-        .post(uploadUrl)
+        .post(`${uploadUrl}&fileModTime=${stats.mtime.getTime()}`)
         .auth(username, password)
         .type('form')
         .on('progress', function(e) {

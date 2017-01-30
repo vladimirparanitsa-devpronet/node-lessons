@@ -18,6 +18,29 @@ const SYNC_MESSAGE_END = ' with size 26';
 
 
 describe('Upload', function() {
+  before(function(){
+    const mockServer = spawn('node', 
+      [path.resolve(__dirname, './../mock/server/mockServer.js'), 3000],
+      { capture: [ 'stdout', 'stderr', 'stdin' ]}
+    ).catch((error) => {
+      console.log(error);
+    });
+
+    const mockServerProcess = mockServer.childProcess;
+
+    mockServerProcess.stdout.on('data', (data) => {
+      console.log(data.toString());
+    });
+
+    mockServerProcess.stdin.on('data', (data) => {
+      console.log(data.toString());
+    });
+
+    mockServerProcess.stderr.on('data', (data) => {
+      console.log(data.toString());
+    });
+  });
+
   it('should ask a password', function(done) {
     const command = spawn(
       'filesync', ['-u', VALID_USER, VALID_FILE_PATH],
@@ -31,7 +54,6 @@ describe('Upload', function() {
       done();
     });
   });
-
 
   it('should give error on short password', function(done) {
     const command = spawn('filesync', ['-u', VALID_USER, VALID_FILE_PATH], { capture: [ 'stdout', 'stderr' ]});
@@ -50,7 +72,6 @@ describe('Upload', function() {
     });
   });
 
-
   it('should give error if file not found', function(done) {
     const command = spawn('filesync', ['-u', VALID_USER, INVALID_FILE_PATH], { capture: [ 'stdout', 'stderr' ]})
       .catch(err => {
@@ -63,7 +84,6 @@ describe('Upload', function() {
       childProcess.stdout.removeListener('data', handler);
     });
   });
-
 
   it('should give error if server is down', function(done) {
     const command = spawn('filesync', ['-u', VALID_USER, VALID_FILE_PATH], { capture: [ 'stdout', 'stderr' ]})
@@ -86,7 +106,6 @@ describe('Upload', function() {
       done();
     });
   });
-
 
   describe('success should ', function() {
     it('show try sync message', function(done) {

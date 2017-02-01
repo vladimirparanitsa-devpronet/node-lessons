@@ -47,7 +47,7 @@ describe('Upload unit', function() {
       });
   });
 
-  var PostStub = function() {
+  const PostStub = function() { //TODO this function should be class
     ['auth', 'type', 'on', 'attach']
       .map(method => this[method] = () => this);
     this.set = () => STUB_SERVER_RESPONSE;

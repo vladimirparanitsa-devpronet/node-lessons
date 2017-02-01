@@ -6,12 +6,12 @@
   Any argument to it not in a 'name=value' format is a command to execute.
 */
 
-var command = require('commander');
-var promptly = require('promptly');
-var chalk = require('chalk');
-var cloud = require('./cloudClient');
+const command = require('commander');
+const promptly = require('promptly');
+const chalk = require('chalk');
+const cloud = require('./cloudClient');
 
-var PASSWORD_MIN_LENGTH = 6;
+const PASSWORD_MIN_LENGTH = 6;
 
 //var userArgs = process.argv.slice(2);
 //console.log('command started with args:', process.argv, ', so userArgs are:', userArgs);

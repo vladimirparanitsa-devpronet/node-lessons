@@ -1,6 +1,6 @@
-var winston = require('winston');
+const winston = require('winston');
 
-var logger = new winston.Logger({
+const logger = new winston.Logger({
   transports: [
     new winston.transports.Console({ 'timestamp': true, colorize: true, level: 'debug' }),
     new winston.transports.File({ filename: './logs/cloud.log', level: 'verbose' })

@@ -1,5 +1,5 @@
-var expect = require('chai').expect;
-var validator = require('../../controllers/upload').validate();
+const expect = require('chai').expect;
+const validator = require('../../controllers/upload').validate();
 
 describe('Upload controller', function() {
 

@@ -1,5 +1,5 @@
-var config = require('config');
-var path = require('path');
+const config = require('config');
+const path = require('path');
 
 module.exports = {
   upload: {

@@ -1,8 +1,8 @@
-var express = require('express');
-var routes = require('./routes');
-var log = require('./log');
+const express = require('express');
+const routes = require('./routes');
+const log = require('./log');
 
-var app = express();
+const app = express();
 
 app.use(routes);
 

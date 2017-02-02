@@ -3,13 +3,17 @@ const fs = require('fs');
 const config = require('config');
 const log = require('../log');
 
+const {
+  filesListPath: FILES_LIST_PATH,
+  filesRecordSplitter: FILERECORDSPLITTER,
+  uploadDestination: UPLOAD_DESTINATION,
+} = config;
+
 const uploadMiddleware = multer({
-  dest: config.uploadDestination,
+  dest: UPLOAD_DESTINATION,
   fileFilter: fileFilter
 });
 
-const FILES_LIST_PATH = config.filesListPath;
-const FILERECORDSPLITTER = config.filesRecordSplitter;
 let filesList = [];
 
 try {

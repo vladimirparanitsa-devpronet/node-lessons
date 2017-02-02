@@ -7,10 +7,17 @@ const config = require('config');
 const debug = require('debug')('test:integration:upload');
 const testData = require('./resources/testData').upload;
 const DEFAULT_FILES_IN_UPLOAD_FOLDER = 1;
-const CORRECT_UPLOAD_URL = '/upload?filePath=' + encodeURI(testData.file);
 const FILELIST_PATH = path.resolve(config.filesListPath);
 const UPLOAD_FOLDER = path.resolve(config.uploadDestination);
 const UPLOAD_FOLDER_EXCLUDE = [ '.gitkeep' ];
+const {
+  file,
+  username,
+  password,
+  wrongPassword = 'qwe',
+  wrongUploadUrl = '/upload',
+} = testData;
+const CORRECT_UPLOAD_URL = '/upload?filePath=' + encodeURI(file);
 
 describe('Upload', function() {
 
@@ -24,11 +31,11 @@ describe('Upload', function() {
   });
 
   it('should get 400 error without mandatory qs and not upload the file', function() {
-    const fileStream = fs.createReadStream(testData.file);
-    const wrongUploadUrl = '/upload';
+    const fileStream = fs.createReadStream(file);
+
     return request
       .post(wrongUploadUrl)
-      .auth(testData.username, testData.password)
+      .auth(username, password)
       .type('form')
       .attach('syncfile', fileStream)
       .set('Connection', 'keep-alive')
@@ -39,11 +46,11 @@ describe('Upload', function() {
   });
 
   it('should get 401 error with wrong credentials and not upload the file', function() {
-    const fileStream = fs.createReadStream(testData.file);
-    const wrongPassword = testData.password + 'qwe';
+    const fileStream = fs.createReadStream(file);
+
     return request
       .post(CORRECT_UPLOAD_URL)
-      .auth(testData.username, wrongPassword)
+      .auth(username, wrongPassword)
       .type('form')
       .attach('syncfile', fileStream)
       .set('Connection', 'keep-alive')
@@ -54,33 +61,33 @@ describe('Upload', function() {
   });
 
   it('should upload non-synced file', function() {
-    const fileStream = fs.createReadStream(testData.file);
+    const fileStream = fs.createReadStream(file);
     return request
       .post(CORRECT_UPLOAD_URL)
-      .auth(testData.username, testData.password)
+      .auth(username, password)
       .type('form')
       .attach('syncfile', fileStream)
       .expect(200)
       .then(function(response){
         return Promise.all([
           expect(response.body.duplicate).to.equal(false),
-          checkUploadResults(1, true, testData.file)
+          checkUploadResults(1, true, file)
         ]);
       });
   });
 
   it('should not upload already synced file but response 200', function() {
-    const fileStream = fs.createReadStream(testData.file);
+    const fileStream = fs.createReadStream(file);
     return request
       .post(CORRECT_UPLOAD_URL)
-      .auth(testData.username, testData.password)
+      .auth(username, password)
       .type('form')
       .attach('syncfile', fileStream)
       .expect(200)
       .then(function(response){
         return Promise.all([
           expect(response.body.duplicate).to.equal(true),
-          checkUploadResults(1, true, testData.file)
+          checkUploadResults(1, true, file)
         ]);
       });
   });

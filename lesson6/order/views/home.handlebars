@@ -1,0 +1,43 @@
+<h1>{{{pageTitle}}}</h1>
+<div class="wrapper">
+  <h2>{{{formTitle}}}</h2>
+  <div class="form">
+    <form method="POST" action="/order">
+      <p>
+        <label>
+          <input type="text" name="name" />
+          {{{formData.name}}}
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="text" name="surname" />
+          {{{formData.surname}}}
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="tel" name="phone" />
+          {{{formData.phone}}}
+        </label>
+      </p>
+      <p>
+        <label>
+          <input type="email" name="email" />
+          {{{formData.email}}}
+        </label>
+      </p>
+      <p>
+        <label>
+          {{{formData.products.name}}}
+          <select name="product">
+            {{#each formData.products.values}}
+              <option value="{{this}}">{{this}}</option>
+            {{/each}}
+          </select>
+        </label>
+      </p>
+      <input type="submit" value="{{{formTitle}}}" />
+    </form>
+  </div>
+</div>

@@ -1,43 +1,43 @@
 <h1>{{{pageTitle}}}</h1>
-<div class="wrapper">
+<div class="form-wrapper">
   <h2>{{{formTitle}}}</h2>
   <div class="form">
     <form method="POST" action="/order">
-      <p>
+      <p class="form-group">
         <label>
-          <input type="text" name="name" />
+          <input class="form-control" type="text" name="name" />
           {{{formData.name}}}
         </label>
       </p>
-      <p>
+      <p class="form-group">
         <label>
-          <input type="text" name="surname" />
+          <input class="form-control" type="text" name="surname" />
           {{{formData.surname}}}
         </label>
       </p>
-      <p>
+      <p class="form-group">
         <label>
-          <input type="tel" name="phone" />
+          <input class="form-control" type="tel" name="phone" />
           {{{formData.phone}}}
         </label>
       </p>
-      <p>
+      <p class="form-group">
         <label>
-          <input type="email" name="email" />
+          <input class="form-control" type="email" name="email" />
           {{{formData.email}}}
         </label>
       </p>
-      <p>
+      <p class="form-group">
         <label>
-          {{{formData.products.name}}}
-          <select name="product">
+          <select class="form-control" name="product">
             {{#each formData.products.values}}
               <option value="{{this}}">{{this}}</option>
             {{/each}}
           </select>
+          {{{formData.products.name}}}
         </label>
       </p>
-      <input type="submit" value="{{{formTitle}}}" />
+      <input class="btn btn-default" type="submit" value="{{{formData.submit}}}" />
     </form>
   </div>
 </div>

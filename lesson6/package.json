@@ -1,0 +1,23 @@
+{
+  "name": "lesson6",
+  "version": "1.0.0",
+  "description": "lesson 6",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladimirparanitsa-devpronet/node-lessons.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vladimirparanitsa-devpronet/node-lessons/issues"
+  },
+  "homepage": "https://github.com/vladimirparanitsa-devpronet/node-lessons#readme",
+  "dependencies": {
+    "express": "^4.14.1",
+    "express-generator": "^4.14.1"
+  }
+}

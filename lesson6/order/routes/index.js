@@ -1,36 +1,15 @@
 const express = require('express');
 const validator = require('validator');
+const nodePhone = require('phone');
 const router = express.Router();
 
 router.post('/order', (req, res, next) => {
-
-  const {name, surname, phone, email, product} = req.body;
-
-  const fieldEmpty = [name, surname, phone, email, product].some((field) => {
-    return validator.isEmpty(field);
-  });
-
-  switch (true) {
-    case ! fieldEmpty:
-      req.error = {message: 'Вы не заполнили все обязательные поля'};
-      next();
-      break;
-    case ! validator.isMobilePhone(phone, 'ru-RU'):
-      req.error = {message: 'Не верный формат телефона'};
-      next();
-      break;
-    case ! validator.isEmail(email):
-      req.error = {message: 'Не верный email'};
-      next();
-      break;
-  }
-
-  next();
+  res.render('order', {});
 });
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('home', {
+  let object = {
     pageTitle: 'Заказ продуктов',
     formTitle: 'Закажите продукты используя форму ниже',
     formData: {
@@ -41,6 +20,7 @@ router.get('/', function(req, res, next) {
       products: {
         name: 'Продукт',
         values: [
+          '',
           'Молоко',
           'Хлеб',
           'Картошка',
@@ -50,7 +30,13 @@ router.get('/', function(req, res, next) {
       },
       submit: 'Заказать',
     }
-  });
+  };
+
+  if (req.error) {
+    object.error = req.error;
+  }
+console.log(req.error);
+  res.render('home', object);
 });
 
 router.post('/order', (req, res, next) => {

@@ -2,32 +2,44 @@
 <div class="form-wrapper">
   <h2>{{{formTitle}}}</h2>
   <div class="form">
-    <form method="POST" action="/order">
-      <p class="form-group">
+    <form method="POST" action="/">
+      <p class="form-group {{#if fieldError}}has-error{{/if}}">
         <label>
           <input class="form-control" type="text" name="name" />
           {{{formData.name}}}
         </label>
+        {{#if fieldError}}
+          {{{fieldError}}}
+        {{/if}}
       </p>
-      <p class="form-group">
+      <p class="form-group {{#if fieldError}}has-error{{/if}}">
         <label>
           <input class="form-control" type="text" name="surname" />
           {{{formData.surname}}}
         </label>
+        {{#if fieldError}}
+          {{{fieldError}}}
+        {{/if}}
       </p>
-      <p class="form-group">
+      <p class="form-group {{#if fieldError}}has-error{{/if}}">
         <label>
           <input class="form-control" type="tel" name="phone" />
           {{{formData.phone}}}
         </label>
+        {{#if fieldError}}
+          {{{fieldError}}}
+        {{/if}}
       </p>
-      <p class="form-group">
+      <p class="form-group {{#if fieldError}}has-error{{/if}}">
         <label>
           <input class="form-control" type="email" name="email" />
           {{{formData.email}}}
         </label>
+        {{#if fieldError}}
+          {{{fieldError}}}
+        {{/if}}
       </p>
-      <p class="form-group">
+      <p class="form-group {{#if fieldError}}has-error{{/if}}">
         <label>
           <select class="form-control" name="product">
             {{#each formData.products.values}}
@@ -36,6 +48,9 @@
           </select>
           {{{formData.products.name}}}
         </label>
+        {{#if fieldError}}
+          {{{fieldError}}}
+        {{/if}}
       </p>
       <input class="btn btn-default" type="submit" value="{{{formData.submit}}}" />
     </form>

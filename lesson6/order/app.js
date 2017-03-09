@@ -46,6 +46,28 @@ console.log(err);
   res.render('error');
 });
 
+app.use(function(err, req, res, next) {
+  const {name, surname, phone, email, product} = req.body;
+
+  const fieldEmpty = [name, surname, phone, email, product].some((field) => {
+    return validator.isEmpty(field);
+  });
+
+  switch (true) {
+    case fieldEmpty:
+      req.error = {field: 'required', message: 'Вы не заполнили все обязательные поля'};
+      return res.redirect('/?error_id=required_field');
+    case nodePhone(phone, 'UA').length === 0:
+      req.error = {field: 'phone', message: 'Не верный формат телефона'};
+      return res.redirect('/?error_id=invalid_tel');
+    case ! validator.isEmail(email):
+      req.error = {field: 'email', message: 'Не верный email'};
+      return res.redirect('/?error_id=invalid_email');
+  }
+
+  next();
+});
+
 app.listen(serverConfig.port, () => {
   console.log(`http://127.0.0.1:${serverConfig.port}`);
 });
